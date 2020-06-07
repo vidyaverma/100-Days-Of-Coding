@@ -1,0 +1,17 @@
+# include <bits/stdc++.h>
+using namespace std;
+int main(){
+   string s;
+   int n;
+   cin>>n>>s;
+   int x=1;
+   while(x<s.size()){
+       if(s[x]==s[x-1]){
+       s.erase(x-1,2);
+       x-=1;
+       }
+       else
+       x++;
+   }
+   cout<<s.size()<<"\n"<<s;
+}
