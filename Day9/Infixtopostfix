@@ -1,0 +1,74 @@
+#include<iostream>
+#include <bits/stdc++.h> 
+using namespace std;
+class infixtopostfix
+{
+	public:
+	int prec(char a)
+	{
+		if(a=='^')
+		return 3;
+		else if(a=='*'||a=='/')
+		return 2;
+		else if(a=='+'||a=='-')
+		return 1;
+		else
+		return -1;
+	}
+	void inftopre(string s)
+	{
+		std::stack<char>st;
+		st.push('Z');
+		int l=s.length();
+		string ns;
+		for(int i=0;i<l;i++)
+		{
+			if(s[i]>='a'&&s[i]<='z')
+			{
+				ns=ns+s[i];
+			}
+			else if(s[i]=='(')
+			{
+				st.push('(');
+			}
+			else if(s[i]==')')
+			{
+				while(st.top()!='(' && st.top()!='Z')
+				{
+					char c=st.top();
+					st.pop();
+					ns+=c;
+				}
+				if(s[i]==')')
+				{
+					st.pop();
+				}
+			}
+			else
+			{
+				while(prec(s[i])<=prec(st.top()) && st.top()!='Z')
+				{
+					char c=st.top();
+					st.pop();
+					ns+=c;
+				}
+				st.push(s[i]);
+			}
+		}
+		while(st.top()!='Z')
+		{
+		char c=st.top();
+		st.pop();
+		ns+=c;	
+		}
+		cout<<ns<<endl;
+	}
+};
+int main()
+{
+	string exp;
+	cin>>exp;
+	infixtopostfix i;
+	i.inftopre(exp);
+	
+}
